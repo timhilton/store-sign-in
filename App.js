@@ -6,6 +6,19 @@ import styles from './src/styles/App.component.style.js';
 import renderIf from './src/helpers/helpers.js';
 import { Text, View, Image } from 'react-native';
 
+// redux
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from "redux";
+
+// middleware
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+
+import reduxPromise from 'redux-promise';
+import reducers from './src/reducers';
+
+const store = createStore(reducers, applyMiddleware(reduxPromise, logger, thunk));
+
 export default class App extends React.Component {
   constructor(props){
   super(props)
@@ -21,6 +34,8 @@ export default class App extends React.Component {
   this.toggleNo = this.toggleNo.bind(this)
 
 }
+
+
 clearState = () => {
   this.setState({
     welcome: true,
@@ -49,17 +64,19 @@ toggleNo = () => {
 
   render() {
     return (
-      <View style={styles.container}>
-        {renderIf(this.state.welcome,
-          <Welcome onPress={this.toggleWelcome} copy={styles.copy}/>
-        )}
-        {renderIf((!this.state.welcome && !this.state.yes && !this.state.no),
-          <Appointment yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
-        )}
-        {renderIf((!this.state.welcome && (this.state.yes || this.state.no)),
-          <Signin onPress={this.clearState} />
-        )}
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          {renderIf(this.state.welcome,
+            <Welcome onPress={this.toggleWelcome} copy={styles.copy}/>
+          )}
+          {renderIf((!this.state.welcome && !this.state.yes && !this.state.no),
+            <Appointment yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
+          )}
+          {renderIf((!this.state.welcome && (this.state.yes || this.state.no)),
+            <Signin onPress={this.clearState} reset={this.clearState} />
+          )}
+        </View>
+      </Provider>
     );
   }
 }
