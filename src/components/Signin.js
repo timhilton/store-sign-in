@@ -30,9 +30,6 @@ class Signin extends Component {
     e.preventDefault();
 
     if (!isValidEmail(this.state.email) || !isValidName(this.state.firstName) || !isValidName(this.state.lastName)) {
-      console.log(this.state.email);
-      console.log(this.state.firstName);
-      console.log(this.state.lastName);
       !isValidEmail(this.state.email) ? this.setState({emailerror:true}) : this.setState({emailerror:false})
       !isValidName(this.state.firstName) ? this.setState({firstNameerror:true}) : this.setState({firstNameerror:false})
       !isValidName(this.state.lastName) ? this.setState({lastNameerror:true}) : this.setState({lastNameerror:false})
