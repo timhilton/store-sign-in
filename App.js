@@ -73,7 +73,7 @@ toggleNo = () => {
             <Appointment yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
           )}
           {renderIf((!this.state.welcome && (this.state.yes || this.state.no)),
-            <Signin onPress={this.clearState} reset={this.clearState} />
+            <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
           )}
         </View>
       </Provider>
