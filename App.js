@@ -2,6 +2,7 @@ import React from 'react';
 import Welcome from './src/components/Welcome.js';
 import Appointment from './src/components/Appointment.js';
 import Signin from './src/components/Signin.js';
+import Camera from './src/components/Camera.js';
 import styles from './src/styles/App.component.style.js';
 import renderIf from './src/helpers/helpers.js';
 import { Text, View, Image } from 'react-native';
@@ -67,15 +68,18 @@ toggleNo = () => {
       <Provider store={store}>
         <View style={styles.container}>
           {renderIf(this.state.welcome,
-            <Welcome onPress={this.toggleWelcome} copy={styles.copy}/>
+              <Welcome onPress={this.toggleWelcome} copy={styles.copy}/>
           )}
           {renderIf((!this.state.welcome && !this.state.yes && !this.state.no),
-            <Appointment yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
+              <Appointment yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
           )}
-          {renderIf((!this.state.welcome && (this.state.yes || this.state.no)),
-            <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
+          {renderIf((!this.state.welcome && this.state.yes),
+            <Camera />
           )}
-        </View>
+          {renderIf((!this.state.welcome && this.state.no),
+              <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
+          )}
+          </View>
       </Provider>
     );
   }

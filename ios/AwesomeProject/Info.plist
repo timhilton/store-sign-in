@@ -37,6 +37,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Do you want to give Store Sign In access to your Camera?</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Do you want to give Store Sign In access to your Photo Library?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
