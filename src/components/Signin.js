@@ -44,9 +44,16 @@ class Signin extends Component {
       this.props.saveVisitor(newVisitor);
       this.props.reset();
 
-      this.setState({ firstName: '', lastName: '', email: '', emailerror: false, firstNameerror: false, lastNameerror: false});
+      this.setState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        emailerror: false,
+        firstNameerror: false,
+        lastNameerror: false
+      });
     }
-}
+  }
 
   render(){
     return (
