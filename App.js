@@ -27,7 +27,9 @@ export default class App extends React.Component {
   this.state = {
     welcome: true,
     yes: false,
-    no: false
+    no: false,
+    firstName: '',
+    lastName: ''
   }
 
   this.toggleWelcome = this.toggleWelcome.bind(this)
@@ -60,6 +62,12 @@ toggleYes = () => {
 toggleNo = () => {
   this.setState({
     no: !this.state.no
+  })
+}
+
+setFirstNameChange = (firstName) => {
+  this.setState({
+    firstName: firstName
   })
 }
 

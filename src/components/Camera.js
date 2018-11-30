@@ -8,7 +8,11 @@ const { width, height } = Dimensions.get('window');
 
 export default class Camera extends Component {
   state = {
-    textBlocks: []
+    textBlocks: [],
+    firstName: '',
+    lastName: '',
+    fullName: '',
+    barcodeFinderVisible: true
   }
 
   takePicture = async function() {
@@ -16,7 +20,10 @@ export default class Camera extends Component {
       const options = { quality: 0.5, base64: true, pauseAfterCapture: true };
       const data = await this.camera.takePictureAsync(options)
       console.log(data.uri);
-      console.log(this.state.textBlocks.map(block => block.value));
+      // console.log(this.state.textBlocks.map(block => block.value));
+      console.log(this.state.fullName);
+      // console.log(this.state.lastName);
+
       // go to signature page
     }
   };
@@ -25,6 +32,57 @@ export default class Camera extends Component {
     const { textBlocks } = object;
     this.setState({ textBlocks });
   };
+
+  onBarCodeRead = scanResult => {
+    // console.log(scanResult);
+    let newScan;
+    let fullName;
+    let firstName;
+    let lastName;
+
+    if(scanResult.data.includes('DAA')){
+      newScan = scanResult.data.split('DAA');
+      newScan = newScan[1].split("\n");
+      newScan = newScan[0];
+
+      if(newScan.includes(',')) {
+        newScan = newScan.split(',');
+      } else {
+        newScan = newScan.split(' ');
+      }
+
+      firstName = `${newScan[1]} ${newScan[2]}`;
+      lastName = newScan[0];
+    } else if (scanResult.data.includes('DCS')){
+      newScan = scanResult.data.split('DCS');
+      newScan = newScan[1].split("\n");
+      lastName = newScan[0];
+      firstName = newScan[1].split('DCT')[1];
+
+      if(firstName.includes(',')){
+        firstName = firstName.replace(/,/g, ' ');
+      }
+    } else if (scanResult.data.includes('DAB')){
+      newScan = scanResult.data.split('DAB');
+      console.log(newScan[1]);
+    } else {
+      console.log(scanResult.data);
+    }
+
+    fullName = `${firstName} ${lastName}`
+    fullName = fullName.replace(/\s+/g,' ').trim();
+    console.log(fullName);
+    console.log(scanResult.data);
+
+    if (scanResult.data != null) {
+      this.setState({
+        firstName: firstName,
+        lastName: lastName,
+        fullName: fullName
+      })
+    }
+    return;
+  }
 
   renderBlock = textElement => (
   <G key={textElement.value + textElement.bounds.origin.x}>
@@ -72,7 +130,9 @@ export default class Camera extends Component {
               permissionDialogTitle={'Permission to use camera'}
               permissionDialogMessage={'We need your permission to use your camera phone'}
               onFacesDetected={null}
-              onTextRecognized={this.textRecognized}
+              // onTextRecognized={this.textRecognized}
+              barcodeFinderVisible={this.state.barcodeFinderVisible}
+              onBarCodeRead={this.onBarCodeRead.bind(this)}
           >
           </RNCamera>
           <Svg style={{ position: 'absolute', height: height - 300, width: width - 200, top: 0, left: 0 }}>
