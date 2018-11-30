@@ -79,12 +79,6 @@ toggleNo = () => {
           {renderIf((!this.state.welcome && this.state.no),
               <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
           )}
-          // make it so it goes to the signature page after scan or Signin
-          // need new state called signature
-
-          // {renderIf((!this.state.welcome && this.state.signature),
-          //     <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
-          // )}
           </View>
       </Provider>
     );
