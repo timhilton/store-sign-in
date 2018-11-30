@@ -72,7 +72,6 @@ export default class Camera extends Component {
     fullName = `${firstName} ${lastName}`
     fullName = fullName.replace(/\s+/g,' ').trim();
     console.log(fullName);
-    console.log(scanResult.data);
 
     if (scanResult.data != null) {
       this.setState({
@@ -135,7 +134,7 @@ export default class Camera extends Component {
               onBarCodeRead={this.onBarCodeRead.bind(this)}
           >
           </RNCamera>
-          <Svg style={{ position: 'absolute', height: height - 300, width: width - 200, top: 0, left: 0 }}>
+          <Svg style={{ position: 'absolute', height: 500, flex:0.4, top: 200, left: 500 }}>
             {this.state.textBlocks.map(block => this.renderBlock(block))}
           </Svg>
         </View>
