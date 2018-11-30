@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Logo from '../elements/Logo.js';
 import Button from '../elements/Button.js';
-import styles from '../styles/Appointment.component.style.js';
+import styles from '../styles/Scan.component.style.js';
 import { View, Text } from 'react-native';
 
-export default class Appointment extends Component {
+export default class Scan extends Component {
   render(){
     return (
       <View style={styles.container}>

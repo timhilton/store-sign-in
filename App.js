@@ -1,6 +1,6 @@
 import React from 'react';
 import Welcome from './src/components/Welcome.js';
-import Appointment from './src/components/Appointment.js';
+import Scan from './src/components/Scan.js';
 import Signin from './src/components/Signin.js';
 import Camera from './src/components/Camera.js';
 import styles from './src/styles/App.component.style.js';
@@ -71,14 +71,20 @@ toggleNo = () => {
               <Welcome onPress={this.toggleWelcome} copy={styles.copy}/>
           )}
           {renderIf((!this.state.welcome && !this.state.yes && !this.state.no),
-              <Appointment yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
+              <Scan yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
           )}
           {renderIf((!this.state.welcome && this.state.yes),
-            <Camera />
+              <Camera cancel={this.toggleYes}/>
           )}
           {renderIf((!this.state.welcome && this.state.no),
               <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
           )}
+          // make it so it goes to the signature page after scan or Signin
+          // need new state called signature
+
+          // {renderIf((!this.state.welcome && this.state.signature),
+          //     <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
+          // )}
           </View>
       </Provider>
     );

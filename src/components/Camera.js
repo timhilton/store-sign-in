@@ -17,6 +17,7 @@ export default class Camera extends Component {
       const data = await this.camera.takePictureAsync(options)
       console.log(data.uri);
       console.log(this.state.textBlocks.map(block => block.value));
+      // go to signature page
     }
   };
 
@@ -83,7 +84,13 @@ export default class Camera extends Component {
             onPress={this.takePicture.bind(this)}
             style = {styles.capture}
         >
-            <Text style={{fontSize: 14}}> SNAP </Text>
+            <Text style={{fontSize: 14}}> Scan </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={this.props.cancel}
+            style = {styles.capture}
+        >
+            <Text style={{fontSize: 14}}> Cancel </Text>
         </TouchableOpacity>
         </View>
       </View>
