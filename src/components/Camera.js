@@ -103,22 +103,7 @@ export default class Camera extends Component {
   render() {
     return (
       <View style={styles.container}>
-
-        <Svg style={{ position: 'absolute', height: height - 40, width, top: 0, left: 0 }}>
-          <G>
-            <Rect
-              x={100}
-              y={150}
-              width={width - 200}
-              height={height - 300}
-              fill="rgba(0,0,0,0)"
-              strokeWidth="2"
-              strokeDasharray="25"
-              stroke="rgb(255,0,0)"
-            />
-          </G>
-        </Svg>
-        <View style={{position: 'absolute', height: height - 304, width: width - 204, top: 152, left: 102}}>
+        <View style={{position: 'absolute', height: height - 300, width: width - 200, top: 150, left: 100}}>
           <RNCamera
               ref={ref => {
                 this.camera = ref;
@@ -134,22 +119,34 @@ export default class Camera extends Component {
               onBarCodeRead={this.onBarCodeRead.bind(this)}
           >
           </RNCamera>
-          <Svg style={{ position: 'absolute', height: 500, flex:0.4, top: 200, left: 500 }}>
-            {this.state.textBlocks.map(block => this.renderBlock(block))}
+
+          <Svg style={{ position: 'absolute', height: height - 40, width, top: 0, left: 0 }}>
+            <G>
+              <Rect
+                x={350}
+                y={175}
+                width={500}
+                height={200}
+                fill="rgba(0,0,0,0)"
+                strokeWidth="2"
+                strokeDasharray="25"
+                stroke="rgb(255,0,0)"
+              />
+            </G>
           </Svg>
         </View>
-        <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center', bottom: 30}}>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-end', bottom: 30}}>
         <TouchableOpacity
             onPress={this.takePicture.bind(this)}
-            style = {styles.capture}
+            style = {styles.button}
         >
-            <Text style={{fontSize: 14}}> Scan </Text>
+            <Text style={styles.buttonText}> Scan </Text>
         </TouchableOpacity>
         <TouchableOpacity
             onPress={this.props.cancel}
-            style = {styles.capture}
+            style = {styles.button}
         >
-            <Text style={{fontSize: 14}}> Cancel </Text>
+            <Text style={styles.buttonText}> Cancel </Text>
         </TouchableOpacity>
         </View>
       </View>

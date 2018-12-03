@@ -6,20 +6,27 @@ export default StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     flexDirection: 'column',
-    backgroundColor: 'black'
+    backgroundColor: 'white'
   },
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
+  button: {
+    width: 500,
+    borderRadius: 40,
+    backgroundColor: '#0272b6',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#0272b6',
+    width: 200,
     padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20
+    margin: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 30
   }
 });
