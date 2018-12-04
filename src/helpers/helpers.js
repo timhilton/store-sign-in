@@ -16,3 +16,7 @@ export function isValidName(name) {
 	const regex=/^(.*[a-z]){2}/i;
 	return regex.test(name);
 }
+
+export function caps(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1)
+}

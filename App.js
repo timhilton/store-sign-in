@@ -3,6 +3,7 @@ import Welcome from './src/components/Welcome.js';
 import Scan from './src/components/Scan.js';
 import Signin from './src/components/Signin.js';
 import Camera from './src/components/Camera.js';
+import Confirmation from './src/components/Confirmation.js';
 import styles from './src/styles/App.component.style.js';
 import renderIf from './src/helpers/helpers.js';
 import { Text, View, Image } from 'react-native';
@@ -28,8 +29,7 @@ export default class App extends React.Component {
     welcome: true,
     yes: false,
     no: false,
-    firstName: '',
-    lastName: ''
+    confirm: false,
   }
 
   this.toggleWelcome = this.toggleWelcome.bind(this)
@@ -43,7 +43,8 @@ clearState = () => {
   this.setState({
     welcome: true,
     yes: false,
-    no: false
+    no: false,
+    confirm: false
   })
 }
 
@@ -65,9 +66,12 @@ toggleNo = () => {
   })
 }
 
-setFirstNameChange = (firstName) => {
+toggleConfirm = () => {
   this.setState({
-    firstName: firstName
+    welcome: false,
+    yes: false,
+    no: false,
+    confirm: !this.state.confirm
   })
 }
 
@@ -78,14 +82,17 @@ setFirstNameChange = (firstName) => {
           {renderIf(this.state.welcome,
               <Welcome onPress={this.toggleWelcome} copy={styles.copy}/>
           )}
-          {renderIf((!this.state.welcome && !this.state.yes && !this.state.no),
+          {renderIf((!this.state.welcome && !this.state.yes && !this.state.no && !this.state.confirm),
               <Scan yes={this.toggleYes} no={this.toggleNo} copy={styles.copy}/>
           )}
           {renderIf((!this.state.welcome && this.state.yes),
-              <Camera cancel={this.toggleYes}/>
+              <Camera cancel={this.toggleYes} confirm={this.toggleConfirm} reset={this.clearState}/>
           )}
           {renderIf((!this.state.welcome && this.state.no),
-              <Signin yes={this.state.yes} no={this.state.no} onPress={this.clearState} reset={this.clearState} />
+              <Signin confirm={this.toggleConfirm} onPress={this.clearState} reset={this.clearState} />
+          )}
+          {renderIf(this.state.confirm,
+              <Confirmation copy={styles.copy} reset={this.clearState} />
           )}
           </View>
       </Provider>

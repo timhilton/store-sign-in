@@ -10,8 +10,7 @@ import * as actions from '../actions';
 class Signin extends Component {
   state = {
     firstName: "",
-    lastName: "",
-    email: ""
+    lastName: ""
   };
 
   setFirstNameChange = (e) => {
@@ -22,15 +21,10 @@ class Signin extends Component {
     this.setState({ lastName: e });
   }
 
-  setEmailChange = (e) => {
-    this.setState({ email: e });
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!isValidEmail(this.state.email) || !isValidName(this.state.firstName) || !isValidName(this.state.lastName)) {
-      !isValidEmail(this.state.email) ? this.setState({emailerror:true}) : this.setState({emailerror:false})
+    if(!isValidName(this.state.firstName) || !isValidName(this.state.lastName)) {
       !isValidName(this.state.firstName) ? this.setState({firstNameerror:true}) : this.setState({firstNameerror:false})
       !isValidName(this.state.lastName) ? this.setState({lastNameerror:true}) : this.setState({lastNameerror:false})
     } else {
@@ -39,16 +33,13 @@ class Signin extends Component {
       // build the new object
       newVisitor.firstName = this.state.firstName
       newVisitor.lastName = this.state.lastName
-      newVisitor.email = this.state.email
 
       this.props.saveVisitor(newVisitor);
-      this.props.reset();
+      this.props.confirm();
 
       this.setState({
         firstName: '',
         lastName: '',
-        email: '',
-        emailerror: false,
         firstNameerror: false,
         lastNameerror: false
       });
@@ -76,25 +67,13 @@ class Signin extends Component {
           <TextInput
             type="text"
             name="lastName"
-            returnKeyType={"next"}
+            returnKeyType={"done"}
             style={this.state.lastNameerror ? styles.inputError : styles.input}
             onChangeText={this.setLastNameChange}
             ref={(input) => { this.secondTextInput = input; }}
-            onSubmitEditing={() => { this.thirdTextInput.focus(); }}
+            onSubmitEditing={this.handleSubmit}
             blurOnSubmit={false}
             value={this.state.lastName}
-          />
-
-          <Text style={styles.label} >Email</Text>
-          <TextInput
-            type="email"
-            name="email"
-            returnKeyType={"done"}
-            style={this.state.emailerror ? styles.inputError : styles.input}
-            onChangeText={this.setEmailChange}
-            ref={(input) => { this.thirdTextInput = input; }}
-            onSubmitEditing={this.handleSubmit}
-            value={this.state.email}
           />
 
           <Button onPress={this.handleSubmit} type="submit" value="submit" text="Sign In"/>

@@ -28,5 +28,11 @@ export default StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 30
+  },
+  copy: {
+    fontSize: 30,
+    color: '#000',
+    alignSelf: 'center',
+    marginTop: 160
   }
 });
